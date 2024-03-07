@@ -1,8 +1,7 @@
-use log::Level;
+use log::{info};
 
 fn main() {
     env_logger::init();
-    info!("the answer was: {}", "Hello, World!");
 
     // Image
     let image_width: u16 = 256;
@@ -11,8 +10,9 @@ fn main() {
     // Render
     println!("P3\n{} {}\n255", image_width, image_height);
     
-    for j in 0..image_width {
-        for i in 0..image_height {
+    for j in 0..image_height {
+        info!("Scanlines remaining: {}", (image_height - j));
+        for i in 0..image_width {
             let r: f32 = (i as f32) / ((image_width - 1) as f32);
             let g: f32 = (j as f32) / ((image_height - 1) as f32);
             let b: f32 = 0 as f32;
@@ -24,4 +24,6 @@ fn main() {
             println!("{} {} {}", ir, ig, ib)
         }
     }
+    
+    info!("Done.");
 }
