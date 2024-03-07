@@ -15,13 +15,19 @@ fn hit_sphere(center: Point3, radius: f64, r: &Ray) -> bool {
     let b = 2.0 * oc.dot(r.dirc);
     let c = oc.dot(oc) - radius * radius;
     let discriminant = b * b - 4.0 * a * c;
-    discriminant >= 0.0
+    
+    if discriminant < 0.0 {
+        -1.0
+    } else {
+        (-b - f64::sqrt(discriminant)) / (2.0 * a)
+    }
 }
 
 fn ray_color(r: &Ray) -> Color {
-
-    if hit_sphere(Point3::new(0.0, 0.0, -1.0 as f64), 0.5, r) {
-        Color::new(1.0, 0.0, 0.0)
+    let t = hit_sphere(Point3::new(0.0, 0.0, -1.0 as f64), 0.5, r);
+    if t > 0.0 {
+        let N: Vec3 = (r.at(t) - Vec3::new(0.0, 0.0, -1.0)).unit_vector();
+        Color::new(N.x() + 1, N.y() + 1, N.z() + 1) * 0.5
     } else {
         let unit_direction = r.dirc.clone().unit_vector();
         let a = 0.5 * (unit_direction.y() + 1.0);
