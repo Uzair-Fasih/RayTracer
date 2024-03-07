@@ -9,7 +9,7 @@ use ray::Ray;
 
 use color::Color;
 
-fn hit_sphere(center: Point3, radius: f64, r: &Ray) -> bool {
+fn hit_sphere(center: Point3, radius: f64, r: &Ray) -> f64 {
     let oc: Vec3 = r.orig - center;
     let a = r.dirc.dot(r.dirc);
     let b = 2.0 * oc.dot(r.dirc);
@@ -26,8 +26,8 @@ fn hit_sphere(center: Point3, radius: f64, r: &Ray) -> bool {
 fn ray_color(r: &Ray) -> Color {
     let t = hit_sphere(Point3::new(0.0, 0.0, -1.0 as f64), 0.5, r);
     if t > 0.0 {
-        let N: Vec3 = (r.at(t) - Vec3::new(0.0, 0.0, -1.0)).unit_vector();
-        Color::new(N.x() + 1, N.y() + 1, N.z() + 1) * 0.5
+        let n: Vec3 = (r.at(t) - Vec3::new(0.0, 0.0, -1.0)).unit_vector();
+        Color::new(n.x() + 1.0, n.y() + 1.0, n.z() + 1.0) * 0.5
     } else {
         let unit_direction = r.dirc.clone().unit_vector();
         let a = 0.5 * (unit_direction.y() + 1.0);
