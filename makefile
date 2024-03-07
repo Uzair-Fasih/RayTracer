@@ -4,3 +4,7 @@ run:
 exec:
 	@rustc ./src/main.rs
 	@./main
+
+clean:
+	rm -rf out
+	mkdir out
