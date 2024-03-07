@@ -1,4 +1,9 @@
+use log::Level;
+
 fn main() {
+    env_logger::init();
+    info!("the answer was: {}", "Hello, World!");
+
     // Image
     let image_width: u16 = 256;
     let image_height: u16 = 256;
