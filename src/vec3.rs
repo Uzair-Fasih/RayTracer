@@ -34,6 +34,10 @@ impl Vec3 {
   pub fn unit_vector(&self) -> Vec3 {
     self.clone() / self.length()
   }
+
+  pub fn dot(&self, other: Vec3) -> f64 {
+    self.e[0] * other.e[0] + self.e[1] * other.e[1] + self.e[2] * other.e[2]
+  }
 }
 
 // Overloading the unary subtraction operator
